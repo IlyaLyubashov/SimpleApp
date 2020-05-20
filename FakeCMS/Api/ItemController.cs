@@ -40,8 +40,6 @@ namespace FakeCMS.Controllers.Api
         [HttpPost]
         public async Task<IActionResult> Post([FromBody] CreateItemDto createItemDto)
         {
-            if (!ModelState.IsValid)
-                return BadRequest();
             await _itemService.Create(createItemDto);
             return Ok();
         }
