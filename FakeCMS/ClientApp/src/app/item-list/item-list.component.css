@@ -1,0 +1,15 @@
+.no-border-last-column{
+    border-right-width: 0px;
+}
+
+.no-border-last-column:last-child:last-child{
+    border-bottom-width: 0px;
+} 
+
+.table-hover tbody tr:hover td, .table-hover tbody tr:hover th {
+    background-color: #f7e9bd;
+}
+
+.table-hover{
+    cursor: pointer;
+}

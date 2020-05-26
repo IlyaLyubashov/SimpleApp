@@ -18,5 +18,8 @@ namespace FakeCMS.BL.Interfaces
         Task Update(ItemDto itemDto);
 
         Task DeleteById(int id);
+        Task<List<ItemDto>> SliceFromOrderedById(int positionFrom, int positionTo);
+
+        Task<long> Count();
     }
 }

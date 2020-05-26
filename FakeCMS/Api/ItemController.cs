@@ -13,7 +13,7 @@ namespace FakeCMS.Controllers.Api
 {
     public class ItemController : BaseApiController
     {
-        
+
         private readonly IItemService _itemService;
 
         public ItemController(IItemService itemService)
@@ -34,6 +34,21 @@ namespace FakeCMS.Controllers.Api
         {
             var item = await _itemService.GetById(id);
             return Ok(item);
+        }
+
+        [HttpGet("listById")]
+        public async Task<IActionResult> List(int positionFrom, int positionTo)
+        {
+            var items = await _itemService.SliceFromOrderedById(positionFrom, positionTo);
+            return Ok(items);
+        }
+
+
+        [HttpGet("count")]
+        public async Task<long> Count()
+        {
+            var count = await _itemService.Count();
+            return count;
         }
 
 
