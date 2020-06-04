@@ -3,6 +3,7 @@ using FakeCMS.BL.Interfaces;
 using FakeCMS.BL.Models;
 using FakeCMS.BL.Models.Item;
 using FakeCMS.DAL.Entities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -10,7 +11,8 @@ using System.Linq;
 using System.Threading.Tasks;
 
 namespace FakeCMS.Controllers.Api
-{
+{   
+    [Authorize]
     public class ItemController : BaseApiController
     {
 

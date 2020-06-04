@@ -1,0 +1,11 @@
+<div class="alert alert-danger alert-dismissible fade show
+    {{ !errorMessage ? 'd-none' : '' }}" 
+    role="alert" 
+>
+    <h4 class="alert-heading">{{errorMessage}}</h4>
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close"
+        (click)="errorMessage=''"
+    >
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>

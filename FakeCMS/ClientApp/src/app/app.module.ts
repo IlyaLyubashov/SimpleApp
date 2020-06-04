@@ -13,6 +13,10 @@ import { CounterComponent } from './counter/counter.component';
 import { FetchDataComponent } from './fetch-data/fetch-data.component';
 import { ItemListComponent } from './item-list/item-list.component';
 import { ItemDetailsComponent as ItemDetailsComponent } from './item-details/item-details.component';
+import { LoginComponent } from './account/login/login.component';
+import { AccountService } from './account/account.service';
+import { AuthInterceptor } from './auth-interceptor';
+import { ErrorComponent } from './utils/error/error.component';
 
 
 @NgModule({
@@ -21,7 +25,9 @@ import { ItemDetailsComponent as ItemDetailsComponent } from './item-details/ite
     NavMenuComponent,
     HomeComponent,
     ItemListComponent,
-    ItemDetailsComponent
+    ItemDetailsComponent,
+    LoginComponent,
+    ErrorComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -33,10 +39,16 @@ import { ItemDetailsComponent as ItemDetailsComponent } from './item-details/ite
       { path: '', component: HomeComponent, pathMatch: 'full' },
       { path: 'item-list', component: ItemListComponent },
       { path: 'item-details/:id', component: ItemDetailsComponent },
+      { path : "login", component: LoginComponent}
     ])
 
   ],
-  providers: [],
+  providers: [AccountService, 
+  {
+    provide: HTTP_INTERCEPTORS,
+    useClass: AuthInterceptor,
+    multi: true
+  }],
   bootstrap: [AppComponent]
 })
 export class AppModule {}
