@@ -4,7 +4,7 @@ import { ItemService } from '../item.service';
 import { Item } from '../item';
 
 import { faMinusCircle } from '@fortawesome/free-solid-svg-icons';
-import { throwError } from 'rxjs';
+
 
 @Component({
   selector: 'item-list',

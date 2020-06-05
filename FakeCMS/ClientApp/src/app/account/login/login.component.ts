@@ -3,8 +3,7 @@ import { Router, ActivatedRoute } from '@angular/router';
  
 import { AccountService } from '../account.service';
 import { HttpErrorResponse } from '@angular/common/http';
-import { ThrowStmt } from '@angular/compiler';
-import { type } from 'os';
+
  
 @Component({
   selector: 'app-login',
