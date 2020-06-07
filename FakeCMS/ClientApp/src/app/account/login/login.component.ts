@@ -13,7 +13,6 @@ export class LoginComponent  {
   username : string;
   password : string;
   loginErrorMessage : string;
-  iter = 1;
    
   constructor(private accountService: AccountService) {
      

@@ -11,7 +11,7 @@ namespace FakeCMS.DAL
     {
         public DbContextFakeCms(DbContextOptions<DbContextFakeCms> options) : base(options)
         {
-            
+            this.Database.EnsureCreated();
         }
 
         public DbSet<Item> Items { get; set; }

@@ -41,7 +41,7 @@ namespace FakeCMS
 
             var connectionString = Configuration.GetConnectionString("DefaultConnection");
             services.AddDbContextPool<DbContextFakeCms>(opts =>
-                opts.UseSqlServer(connectionString)
+                opts.UseNpgsql(connectionString)
             );
 
 
