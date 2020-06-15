@@ -1,0 +1,42 @@
+version: '3.7'
+networks:
+    fakecms_net:
+      name: 'cms' 
+
+services:
+
+    aspnet:
+        build: .
+        restart: always
+        container_name: 'fakecms_ap'
+        ports:
+          - 5001:80
+        depends_on:
+          - db
+        working_dir: '/app'
+        networks:
+          - fakecms_net
+        command: ./wait-for-it.sh fakecms_db:5432 -- dotnet FakeCMS.dll  
+
+    db:
+        image: 'postgres:12.3'
+        container_name: 'fakecms_db'
+        restart: always
+        networks:
+            - fakecms_net     
+        environment:
+            POSTGRES_DB: FakeCMSDatabase
+            POSTGRES_USER: postgres
+            POSTGRES_PASSWORD: Postgres_1
+        ports:
+            - 5432:5432
+
+    adminer:
+        image: adminer
+        restart: always
+        networks:
+          - fakecms_net    
+        ports:
+            - 8080:8080
+        depends_on:
+          - db
