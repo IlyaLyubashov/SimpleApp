@@ -1,0 +1,34 @@
+.no-border-last-column{
+    border-right-width: 0px;
+}
+
+.no-border-last-column:last-child:last-child{
+    border-bottom-width: 0px;
+} 
+
+.table-edit.table-hover tbody tr:hover td, .table-hover tbody tr:hover th {
+    background-color: #f7e9bd;
+}
+
+.table-info-custom.table-hover tbody tr:hover td, .table-hover tbody tr:hover th {
+    background-color: #bee5eb; 
+    
+}
+
+.selected{
+    background-color: #f7e9bd;
+}
+
+.table-hover{
+    cursor: pointer;
+}
+
+.table-wrapper-scroll-y {
+    display: block;
+}
+
+.my-custom-scrollbar {
+    position: relative;
+    height: 200px;
+    overflow: auto;
+}

@@ -1,6 +1,6 @@
 import { Component, OnInit} from '@angular/core';
 import { Item } from '../item';
-import { ItemService } from '../item.service';
+import { ItemService } from '../services/item.service';
 import { ActivatedRoute} from '@angular/router';
 import { Observable } from 'rxjs';
 
@@ -10,7 +10,7 @@ import { Observable } from 'rxjs';
     providers: [ItemService]
 })
 export class ItemDetailsComponent implements OnInit{
-    private readonly itemId : number | undefined;
+    public readonly itemId : number | undefined;
     
     public item : Item;
 

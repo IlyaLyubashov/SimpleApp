@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {Router} from '@angular/router'
-import { ItemService } from '../item.service';
+import { ItemService } from '../services/item.service';
 import { Item } from '../item';
 
 import { faMinusCircle } from '@fortawesome/free-solid-svg-icons';

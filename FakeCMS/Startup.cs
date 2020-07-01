@@ -32,6 +32,8 @@ namespace FakeCMS
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            var serviceProvider = services.BuildServiceProvider();
+
             services.AddControllersWithViews();
             // In production, the Angular files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
@@ -39,21 +41,27 @@ namespace FakeCMS
                 configuration.RootPath = "ClientApp/dist";
             });
 
-            var connectionString = Configuration.GetConnectionString("DefaultConnection");
+            string connectionString;
+            var env = serviceProvider.GetService<IWebHostEnvironment>();
+            if (env.IsDevelopment())
+                connectionString = Configuration.GetConnectionString("DefaultConnection");
+            else
+                connectionString = Configuration.GetConnectionString("DockerConnection");
+
             services.AddDbContextPool<DbContextFakeCms>(opts =>
                 opts.UseNpgsql(connectionString)
             );
 
-
             services.AddCustomAuth(Configuration);
+
+            services.RegisterServices();
 
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "FakeCms Api", Version = "v1" });
             });
 
-            services.AddTransient<IRepository, FakeCmsRepository>();
-            services.AddTransient<IItemService, ItemService>();
+            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

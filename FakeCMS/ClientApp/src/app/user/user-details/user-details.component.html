@@ -1,0 +1,35 @@
+<ul class="nav nav-tabs col-11">
+    <li class="nav-item">
+      <a class="nav-link {{currentTab == 0 ? 'active' : ''}}" 
+      (click)="currentTab = 0"
+      href="javascript:;">
+        Common
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link {{currentTab == 1 ? 'active' : ''}}" 
+        href="javascript:;" (click)="currentTab = 1">
+        Roles
+      </a>
+    </li>
+    <!--<li class="nav-item">
+      <a class="nav-link {{currentTab == 2 ? 'active' : ''}}" 
+        href="javascript:;">
+        Profile
+      </a>
+    </li>-->
+    <!--<li class="nav-item">
+      <a class="nav-link disabled" href="#">Disabled</a>
+    </li>-->
+    <li>
+      <button class="btn btn-warning mr-0" (click)="updateUser()">Save</button>
+    </li>
+</ul>
+<div id='info-contrainer'>
+  <user-common-details
+    class="{{currentTab == 0? '' : 'd-none'}}">
+  </user-common-details>
+  <user-role-details [userRolePart] = generalUser.rolePart
+    class="{{currentTab == 1? '' : 'd-none'}}">
+  </user-role-details>
+</div>

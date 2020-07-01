@@ -31,9 +31,9 @@ namespace FakeCMS.DAL
         public async Task<int> Add<T>(T entity) where T : BaseEntity
         {
             await _dbContext.Set<T>().AddAsync(entity);
-            var id = await _dbContext.SaveChangesAsync();
+            await _dbContext.SaveChangesAsync();
 
-            return id;
+            return entity.Id;
         }
 
         public async Task Delete<T>(T entity) where T : BaseEntity

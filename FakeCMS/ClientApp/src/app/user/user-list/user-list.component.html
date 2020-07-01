@@ -1,0 +1,34 @@
+<div class="mb-3">
+    <h1 class="d-inline" id="tableLabel">Users</h1>
+    <a class="btn btn-primary d-inline ml-3"
+    href="javascript:;">
+    <!--[routerLink]="['', '' ]"-->
+    Append</a>
+    <!--<button class="btn btn-warning d-inline ml-3 text-muted"
+     (click)="toogleEditMode()">
+    Change Mode</button>-->
+    <!--<button class="btn btn-danger d-inline ml-3 text-dark"
+     (click)="toogleDeleteMode()">
+    Delete Mode</button>-->
+</div>
+
+<table class="table table-bordered table-info-custom table-hover col-7
+  {{deleteMode ? 'no-border-last-column' : ''}}" 
+  aria-labelledby="tableLabel" *ngIf="gridUsers">
+  <thead>
+    <tr>
+      <th>Username</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let user of gridUsers" (click)="selectUser(user)">
+      <td>{{ user.userName }}</td>
+      <td class="d-none">{{ user.id }}</td>
+      <td class="border-0 
+      {{deleteMode ? '' : 'd-none'}}"
+      (click)="deleteUser(user)">
+        <fa-icon [icon]="faMinusCircle"></fa-icon>
+      </td>
+    </tr>
+  </tbody>
+</table>

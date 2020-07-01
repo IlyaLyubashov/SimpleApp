@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClientModule, HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
-import { RequestApiService } from 'src/api.request.service';
+import { RequestApiService } from 'src/app/services/api.request.service';
 import { Observable } from 'rxjs';
  
 @Injectable({

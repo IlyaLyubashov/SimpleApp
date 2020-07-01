@@ -1,0 +1,68 @@
+<div class="d-flex col-12 mt-5">
+    <div class = "col-3">
+        <h3>Roles available</h3>
+        <div class="table-wrapper-scroll-y my-custom-scrollbar">
+            <table class="table table-bordered table-hover w-100">
+                <thead>
+                    <th>Name</th>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let userRole of availableRoles" >
+                        <td (click) = "selectRole(userRole)"
+                            class = "{{userRole.id == selectedRole.id ? 'selected' : ''}}"
+                        >
+                            {{ userRole.name }}
+                        </td>
+                    </tr>
+                </tbody> 
+            </table>
+        </div>
+    </div>
+    <div class="col-1 d-flex flex-column align-items-center justify-content-center">
+        <div>
+            <fa-icon class="cursor-pointer" 
+                [icon]="arrowAddUserRole"
+                (click)="onAddUserRoleClick()"></fa-icon>
+        </div>
+        <div>
+            <fa-icon class="cursor-pointer" 
+                [icon]="arrowRemoveUserRole"
+                (click)="onRemoveUserRoleClick()"></fa-icon>
+        </div>        
+    </div>
+    <div class = "col-3">
+        <h3>Roles user has</h3>
+        <div class="table-wrapper-scroll-y my-custom-scrollbar">
+            <table class="table table-bordered table-hover w-100">
+                <thead>
+                    <th>Name</th>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let userRole of userRoles">
+                        <td (click)="selectRole(userRole)"
+                            class = "{{userRole.id == selectedRole.id? 'selected' : ''}}"
+                        >
+                            {{ userRole.name }}
+                        </td>
+                    </tr>
+                </tbody> 
+            </table>
+        </div>
+    </div>
+    <div class="col-1"></div>
+    <!--<div class = "col-3">
+        <h3>Passive Roles</h3>
+        <div class="table-wrapper-scroll-y my-custom-scrollbar">
+            <table class="table table-bordered w-100 table-active">
+                <thead>
+                    <th>Name</th>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Passive Role</td>
+                    </tr>
+                </tbody> 
+            </table>
+        </div>
+    </div>-->
+</div>
