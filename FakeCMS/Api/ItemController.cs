@@ -9,6 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Transactions;
 
 namespace FakeCMS.Controllers.Api
 {   
@@ -17,10 +18,12 @@ namespace FakeCMS.Controllers.Api
     {
 
         private readonly IItemService _itemService;
+        private readonly ITableService _tableService;
 
-        public ItemController(IItemService itemService)
+        public ItemController(IItemService itemService, ITableService tableService)
         {
             _itemService = itemService;
+            _tableService = tableService;
         }
 
         [HttpGet]
@@ -57,7 +60,12 @@ namespace FakeCMS.Controllers.Api
         [HttpPost]
         public async Task<IActionResult> Post([FromBody] CreateItemDto createItemDto)
         {
-            await _itemService.Create(createItemDto);
+            using (TransactionScope ts = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
+            {
+                var itemId = await _itemService.Create(createItemDto);
+                await _tableService.AddStateTracking<Item>(itemId);
+                ts.Complete();
+            }
             return Ok();
         }
 

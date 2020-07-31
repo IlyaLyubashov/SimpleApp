@@ -14,8 +14,8 @@ namespace FakeCMS.BL.Interfaces
 
         Task<List<RoleDto>> UserRoles(int userId);
 
-        Task RemoveChildRole(RelationRoleDto relationDto);
+        //Task RemoveChildRole(RelationRoleDto relationDto);
 
-        Task<int> AddChildRole(RelationRoleDto relationDto);
+        //Task<int> AddChildRole(RelationRoleDto relationDto);
     }
 }

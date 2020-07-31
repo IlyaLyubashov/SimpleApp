@@ -25,7 +25,7 @@ namespace FakeCMS.BL.Services
             _dbContext = dbContext;
         }
 
-        public async Task<long> Create(CreateItemDto createItemDto)
+        public async Task<int> Create(CreateItemDto createItemDto)
         {
             var item = CreateItemDtoToEntity(createItemDto);
             var createdItemId = await _repository.Add(item);

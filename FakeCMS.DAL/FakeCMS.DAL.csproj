@@ -7,6 +7,12 @@
   <ItemGroup>
     <Compile Remove="Migrations\20200624193713_Add_RoleLink.cs" />
     <Compile Remove="Migrations\20200624193713_Add_RoleLink.Designer.cs" />
+    <Compile Remove="Migrations\20200624194621_Add_RoleLink.cs" />
+    <Compile Remove="Migrations\20200624194621_Add_RoleLink.Designer.cs" />
+    <Compile Remove="Migrations\20200714204903_BoardEntities.cs" />
+    <Compile Remove="Migrations\20200714204903_BoardEntities.Designer.cs" />
+    <Compile Remove="Migrations\20200714205101_BoardEntities.cs" />
+    <Compile Remove="Migrations\20200714205101_BoardEntities.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

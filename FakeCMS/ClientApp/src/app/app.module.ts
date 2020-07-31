@@ -6,6 +6,7 @@ import { RouterModule} from '@angular/router';
 import { FontAwesomeModule, FaIconLibrary  } from '@fortawesome/angular-fontawesome';
 import { faCoffee } from '@fortawesome/free-solid-svg-icons';
 
+//COMPONENTS
 import { AppComponent } from './app.component';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
 import { HomeComponent } from './home/home.component';
@@ -19,7 +20,18 @@ import { UserListComponent } from './user/user-list/user-list.component';
 import { UserDetailsComponent } from './user/user-details/user-details.component';
 import { UserRoleDetailsComponent } from './user/user-role/user-role.component';
 import { UserCommonDetailsComponent } from './user/user-common/user-common.component';
+import { BoardComponent } from './board-utils/board/board.component';
+import { StateComponent } from './board-utils/state/state.component';
+import { DataObjectComponent } from './board-utils/data-object/data-object.component';
 
+//PROVIDERS
+import { BoardService } from './board-utils/board/board.service';
+import { DataObjectService } from './board-utils/data-object/data-object.service';
+import { StateService } from './board-utils/state/state.service';
+
+// PIPES
+import { OrderBy } from './board-utils/pipes/orderby.pipe';
+import { Where } from './board-utils/pipes/where.pipe';
 
 @NgModule({
   declarations: [
@@ -33,7 +45,12 @@ import { UserCommonDetailsComponent } from './user/user-common/user-common.compo
     UserListComponent,
     UserDetailsComponent,
     UserRoleDetailsComponent,
-    UserCommonDetailsComponent
+    UserCommonDetailsComponent,
+    BoardComponent,
+    StateComponent,
+    DataObjectComponent,
+    OrderBy,
+    Where
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -47,7 +64,8 @@ import { UserCommonDetailsComponent } from './user/user-common/user-common.compo
       { path: 'item-details/:id', component: ItemDetailsComponent },
       { path : "login", component: LoginComponent},
       { path : "users", component: UserListComponent},
-      { path : 'user-details/:id', component: UserDetailsComponent}
+      { path : 'user-details/:id', component: UserDetailsComponent},
+      { path : 'board/:id', component : BoardComponent}
     ])
 
   ],
@@ -56,7 +74,11 @@ import { UserCommonDetailsComponent } from './user/user-common/user-common.compo
     provide: HTTP_INTERCEPTORS,
     useClass: AuthInterceptor,
     multi: true
-  }],
+  },
+  BoardService,
+  DataObjectService,
+  StateService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

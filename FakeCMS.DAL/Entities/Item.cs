@@ -5,6 +5,9 @@ using System.Text;
 
 namespace FakeCMS.DAL.Entities
 {
+    [StatefullEntity(TableName = nameof(Item),
+        TitleTemplate ="Name - [[Name]]",
+        DescriptionTemplate = "Description - [[Description]]")]
     public class Item : BaseEntity
     {
         public string Name { get; set; }

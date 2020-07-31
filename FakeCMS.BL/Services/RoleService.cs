@@ -19,7 +19,7 @@ namespace FakeCMS.BL.Services
 
 
         public RoleService(DbContextFakeCms dbContext, IRepository repository)
-        { 
+        {
             _dbContext = dbContext;
             _repository = repository;
         }
@@ -60,27 +60,27 @@ namespace FakeCMS.BL.Services
         }
 
 
-        public async Task<int> AddChildRole(RelationRoleDto relationDto)
-        {
-            var roleLink = new RoleLink
-            {
-                ChildRoleId = relationDto.ChildRoleId,
-                ParentRoleId = relationDto.ParentRoleId
-            };
+        //public async Task<int> AddChildRole(RelationRoleDto relationDto)
+        //{
+        //    var roleLink = new RoleLink
+        //    {
+        //        ChildRoleId = relationDto.ChildRoleId,
+        //        ParentRoleId = relationDto.ParentRoleId
+        //    };
 
-            await _dbContext.RoleLinks.AddAsync(roleLink);
-            await _dbContext.SaveChangesAsync();
-            return roleLink.Id;
-        }
+        //    await _dbContext.RoleLinks.AddAsync(roleLink);
+        //    await _dbContext.SaveChangesAsync();
+        //    return roleLink.Id;
+        //}
 
 
-        public async Task RemoveChildRole(RelationRoleDto relationDto)
-        {
-            var roleLink = await _dbContext.RoleLinks.Where(rl => rl.ParentRoleId == relationDto.ParentRoleId &&
-                                                            rl.ChildRoleId == relationDto.ChildRoleId)
-                .SingleOrDefaultAsync();
-            _dbContext.RoleLinks.Remove(roleLink);
-            await _dbContext.SaveChangesAsync();
-        }
+        //public async Task RemoveChildRole(RelationRoleDto relationDto)
+        //{
+        //    var roleLink = await _dbContext.RoleLinks.Where(rl => rl.ParentRoleId == relationDto.ParentRoleId &&
+        //                                                    rl.ChildRoleId == relationDto.ChildRoleId)
+        //        .SingleOrDefaultAsync();
+        //    _dbContext.RoleLinks.Remove(roleLink);
+        //    await _dbContext.SaveChangesAsync();
+        //}
     }
 }

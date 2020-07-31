@@ -1,0 +1,12 @@
+<li class="card" 
+    [attr.card-id]="dataObj.objectId"
+    [attr.card-order]="dataObj.index"
+    (click)="editCard()">
+    <span [innerHtml]="dataObj.title" [style.display]="editingCard ? 'none' : ''">
+    </span>
+    <textarea
+        [style.display]="editingCard ? '' : 'none' "
+        (keydown)="blurOnEnter($event)"
+        (blur)="updateCard()"
+        [(ngModel)]="dataObj.title" ></textarea>
+</li>

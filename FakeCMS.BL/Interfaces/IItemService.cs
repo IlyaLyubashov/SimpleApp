@@ -13,7 +13,7 @@ namespace FakeCMS.BL.Interfaces
 
         Task<List<ItemDto>> List();
 
-        Task<long> Create(CreateItemDto itemDto);
+        Task<int> Create(CreateItemDto itemDto);
 
         Task Update(ItemDto itemDto);
 

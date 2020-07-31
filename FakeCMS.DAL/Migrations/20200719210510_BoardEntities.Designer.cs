@@ -10,8 +10,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace FakeCMS.DAL.Migrations
 {
     [DbContext(typeof(DbContextFakeCms))]
-    [Migration("20200624194621_Add_RoleLink")]
-    partial class Add_RoleLink
+    [Migration("20200719210510_BoardEntities")]
+    partial class BoardEntities
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -45,6 +45,33 @@ namespace FakeCMS.DAL.Migrations
                     b.ToTable("Items");
                 });
 
+            modelBuilder.Entity("FakeCMS.DAL.Entities.ObjectState", b =>
+                {
+                    b.Property<int>("TableId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("ObjectId")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("text");
+
+                    b.Property<int>("Index")
+                        .HasColumnType("integer");
+
+                    b.Property<int?>("StateId")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("Title")
+                        .HasColumnType("text");
+
+                    b.HasKey("TableId", "ObjectId");
+
+                    b.HasIndex("StateId");
+
+                    b.ToTable("ObjectStates");
+                });
+
             modelBuilder.Entity("FakeCMS.DAL.Entities.Role", b =>
                 {
                     b.Property<int>("Id")
@@ -73,26 +100,70 @@ namespace FakeCMS.DAL.Migrations
                     b.ToTable("AspNetRoles");
                 });
 
-            modelBuilder.Entity("FakeCMS.DAL.Entities.RoleLink", b =>
+            modelBuilder.Entity("FakeCMS.DAL.Entities.RoleState", b =>
+                {
+                    b.Property<int>("RoleId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("StateId")
+                        .HasColumnType("integer");
+
+                    b.HasKey("RoleId", "StateId");
+
+                    b.HasIndex("StateId");
+
+                    b.ToTable("RoleStates");
+                });
+
+            modelBuilder.Entity("FakeCMS.DAL.Entities.State", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer")
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
-                    b.Property<int>("ChildRoleId")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("ParentRoleId")
-                        .HasColumnType("integer");
+                    b.Property<string>("Name")
+                        .HasColumnType("text");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ChildRoleId");
+                    b.ToTable("States");
+                });
 
-                    b.HasIndex("ParentRoleId");
+            modelBuilder.Entity("FakeCMS.DAL.Entities.StateTable", b =>
+                {
+                    b.Property<int>("TableId")
+                        .HasColumnType("integer");
 
-                    b.ToTable("RoleLinks");
+                    b.Property<int>("StateId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("IndexInTable")
+                        .HasColumnType("integer");
+
+                    b.HasKey("TableId", "StateId");
+
+                    b.HasIndex("StateId");
+
+                    b.ToTable("StateTables");
+                });
+
+            modelBuilder.Entity("FakeCMS.DAL.Entities.Table", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<string>("Name")
+                        .HasColumnType("text");
+
+                    b.Property<string>("TypeName")
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Tables");
                 });
 
             modelBuilder.Entity("FakeCMS.DAL.Entities.User", b =>
@@ -265,17 +336,45 @@ namespace FakeCMS.DAL.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("FakeCMS.DAL.Entities.RoleLink", b =>
+            modelBuilder.Entity("FakeCMS.DAL.Entities.ObjectState", b =>
                 {
-                    b.HasOne("FakeCMS.DAL.Entities.Role", "ChildRole")
-                        .WithMany("LinksToParents")
-                        .HasForeignKey("ChildRoleId")
+                    b.HasOne("FakeCMS.DAL.Entities.State", "State")
+                        .WithMany()
+                        .HasForeignKey("StateId");
+
+                    b.HasOne("FakeCMS.DAL.Entities.Table", "Table")
+                        .WithMany()
+                        .HasForeignKey("TableId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("FakeCMS.DAL.Entities.RoleState", b =>
+                {
+                    b.HasOne("FakeCMS.DAL.Entities.Role", "Role")
+                        .WithMany()
+                        .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("FakeCMS.DAL.Entities.Role", "ParentRole")
-                        .WithMany("LinksToChildren")
-                        .HasForeignKey("ParentRoleId")
+                    b.HasOne("FakeCMS.DAL.Entities.State", "State")
+                        .WithMany()
+                        .HasForeignKey("StateId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("FakeCMS.DAL.Entities.StateTable", b =>
+                {
+                    b.HasOne("FakeCMS.DAL.Entities.State", "State")
+                        .WithMany()
+                        .HasForeignKey("StateId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("FakeCMS.DAL.Entities.Table", "Table")
+                        .WithMany("StateTables")
+                        .HasForeignKey("TableId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
