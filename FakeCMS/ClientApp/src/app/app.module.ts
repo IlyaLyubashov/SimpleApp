@@ -6,6 +6,7 @@ import { RouterModule} from '@angular/router';
 import { FontAwesomeModule, FaIconLibrary  } from '@fortawesome/angular-fontawesome';
 import { faCoffee } from '@fortawesome/free-solid-svg-icons';
 
+
 //COMPONENTS
 import { AppComponent } from './app.component';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
@@ -32,6 +33,8 @@ import { StateService } from './board-utils/state/state.service';
 // PIPES
 import { OrderBy } from './board-utils/pipes/orderby.pipe';
 import { Where } from './board-utils/pipes/where.pipe';
+import { YesNoModalComponent } from './shared/yes-no-modal/yes-no-modal.component';
+import { ModalDirective, ModalModule } from 'ngx-bootstrap/modal';
 
 @NgModule({
   declarations: [
@@ -50,7 +53,8 @@ import { Where } from './board-utils/pipes/where.pipe';
     StateComponent,
     DataObjectComponent,
     OrderBy,
-    Where
+    Where,
+    YesNoModalComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -58,6 +62,7 @@ import { Where } from './board-utils/pipes/where.pipe';
     FormsModule,
     RouterModule,
     FontAwesomeModule,
+    ModalModule.forRoot(),
     RouterModule.forRoot([
       { path: '', component: HomeComponent, pathMatch: 'full' },
       { path: 'item-list', component: ItemListComponent },

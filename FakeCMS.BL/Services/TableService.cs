@@ -1,5 +1,6 @@
 ﻿using FakeCms.Shared;
 using FakeCMS.BL.Interfaces;
+using FakeCMS.BL.Models.State;
 using FakeCMS.BL.Models.Table;
 using FakeCMS.DAL;
 using FakeCMS.DAL.Entities;
@@ -81,21 +82,6 @@ namespace FakeCMS.BL.Services
                 .ToList();
         }
 
-        public async Task<StateFromTableDto> AddStateToTable(StateFromTableDto dto)
-        {
-            var (stateTable, state) = StateFromTableDto.Map(dto);
-            state.Id = 0;
-            using (TransactionScope ts = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
-            {  
-                await _dbContext.AddAsync(state);
-                await _dbContext.SaveChangesAsync();
-                stateTable.StateId = state.Id;
-                await _dbContext.AddAsync(stateTable);
-                await _dbContext.SaveChangesAsync();
-                ts.Complete();
-            }
-            return StateFromTableDto.Map(stateTable);
-        }
 
         public async Task<List<StateFromTableDto>> GetTableStates(int tableId)
         {
@@ -123,6 +109,15 @@ namespace FakeCMS.BL.Services
                 Description = statefullManager.GetDescription()
             };
             await AddStateTracking(objectStateDto);
+        }
+
+        public async Task UpdateDataObject(ObjectStateDto objectDto)
+        {
+            var objectState = await _dbContext.ObjectStates.Where(os => os.ObjectId == objectDto.ObjectId).SingleAsync();
+            objectState.StateId = objectDto.StateId;
+            objectState.Title = objectDto.Title;
+            objectState.Description = objectDto.Description;
+            await _dbContext.SaveChangesAsync();
         }
     }
     

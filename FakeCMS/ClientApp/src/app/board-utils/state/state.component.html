@@ -3,13 +3,16 @@
     [attr.column-index]="column.index">
     <div class="column-header">
         <h4 [innerHtml]="column.name"
-            [style.display]="editingColumn ?'none' : '' "
-            (click)="editColumn()" ></h4>
+        [style.display]="editingColumn ?'none' : '' "
+        (click)="editColumn()" ></h4>
+
+        
         <input  
             [style.display]="editingColumn ?'' : 'none' "
             (blur)="updateColumnOnBlur()"
             (keyup)="addColumnOnEnter($event)"
             [(ngModel)]="column.name" />
+        
     </div>
     <ul class="card-list" [attr.column-id]="column.id">
         <li *ngFor="let card of cards | where : { stateId: column.id } | orderBy : 'index'">

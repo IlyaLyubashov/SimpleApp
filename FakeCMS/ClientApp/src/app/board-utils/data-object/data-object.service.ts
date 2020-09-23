@@ -7,7 +7,7 @@ import { RequestApiService } from 'src/app/services/api.request.service';
 export class DataObjectService extends RequestApiService{
 
   constructor(private _http: HttpClient) {
-    super('dataObj')
+    super('tableObject')
   }
 
   getAll() {
@@ -19,11 +19,11 @@ export class DataObjectService extends RequestApiService{
   }
 
   put(dataObj: DataObject) {
-    return this._http.put(this.request_url + '/' + dataObj.objectId, JSON.stringify(dataObj));
+    return this._http.put(this.request_url, dataObj);
   }
 
   post(dataObj: DataObject) {
-    return this._http.post(this.request_url, JSON.stringify(dataObj));
+    return this._http.post(this.request_url, dataObj);
   }
 
   delete(dataObj: DataObject) {

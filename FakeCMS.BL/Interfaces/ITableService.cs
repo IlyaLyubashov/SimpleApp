@@ -21,7 +21,7 @@ namespace FakeCMS.BL.Interfaces
 
         Task<List<ObjectStateDto>> GetTableData(int tableId);
 
-        Task<StateFromTableDto> AddStateToTable(StateFromTableDto dto);
+        Task<List<StateFromTableDto>> GetTableStates(int tableId);
 
         Task<List<TableDto>> List();
 
@@ -30,6 +30,6 @@ namespace FakeCMS.BL.Interfaces
         Task AddStateTracking<TEntity>(int objectId)
             where TEntity : BaseEntity;
 
-        Task<List<StateFromTableDto>> GetTableStates(int tableId);
+        Task UpdateDataObject(ObjectStateDto objectDto);
     }
 }

@@ -10,8 +10,11 @@ namespace FakeCMS.BL.Models.State
 
         public string Name { get; set; }
 
+        public string Description { get; set; }
+
         public int Index { get; set; }
 
         public int BoardId { get; set; }
+
     }
 }

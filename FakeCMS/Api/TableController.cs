@@ -20,14 +20,6 @@ namespace FakeCMS.Api
             _tableService = tableService;
         }
 
-
-        [HttpPost("addState")]
-        public async Task<IActionResult> AddState([FromBody]StateFromTableDto dto)
-        {
-            var stateFromTableDto = await _tableService.AddStateToTable(dto);
-            return Ok(stateFromTableDto);
-        }
-
         [HttpGet]
         public async Task<IActionResult> List()
         {

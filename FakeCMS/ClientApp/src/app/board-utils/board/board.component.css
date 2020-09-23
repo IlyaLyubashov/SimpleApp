@@ -60,3 +60,14 @@
 	line-height: 18px;
 	padding: 3px 5px 4px 5px;
 }
+
+.up-column {
+  height: 30px;
+  border-radius: 3px;
+  width: 100px;
+  margin-left: 10px;
+  box-sizing: border-box;
+  display: block;
+  /* vertical-align: top; */
+  white-space: nowrap;
+}

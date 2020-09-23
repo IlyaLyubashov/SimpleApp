@@ -10,7 +10,7 @@ import { HttpClient } from '@angular/common/http';
 export class StateService extends RequestApiService{
 
   constructor(private _http: HttpClient) {
-    super('state');
+    super('tableState');
   }
 
   getAll() {
@@ -27,11 +27,11 @@ export class StateService extends RequestApiService{
 
   put(state: State) {
     return this._http
-      .put(this.request_url + '/' + state.id, JSON.stringify(state));
+      .put(this.request_url, state);
   }
 
   post(state: State) {;
-    return this._http.post<State>(this.request_url, JSON.stringify(state));
+    return this._http.post<State>(this.request_url, state);
   }
 
   delete(state: State) {

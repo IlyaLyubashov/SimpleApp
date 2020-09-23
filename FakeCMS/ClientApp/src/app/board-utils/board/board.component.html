@@ -1,24 +1,38 @@
+<app-yes-no-modal
+  #consoleModal
+  body="Вы действительно хотите удалить свой аккаунт?"
+  title="Предупреждение"
+  type="danger"
+></app-yes-no-modal>
+<!--<button (click)="console()">Console</button>-->
+
 <div *ngIf="board" class="board-title">
-  <span [style.display]="editingTilte ? 'none' : ''" (click)="editTitle()">{{ board?.title }}</span>
+  <span [style.display]="editingTilte ? 'none' : ''" (click)="editTitle()">{{ board?.name }}</span>
 
   <input  
     [style.display]="editingTilte ? '' : 'none' "
     (keyup)="blurOnEnter($event)"
     (blur)="updateBoard()"
-    [(ngModel)]="board.title" />  
+    [(ngModel)]="board.name" />  
 </div>
 
 <section *ngIf="board" id="main" >
   <div *ngFor="let state of board.states | orderBy : 'index'" class="sortable-column">
+    <div class="up-column">
+      <button class="btn btn-danger w-100" style="height: 100%;" 
+      #delBtn
+      (click)="deleteState(state)"
+      [style.display] = 'state.id == null ? "none" : delBtn.style.display'
+      >Delete</button>
+    </div>
     <gtm-column [column]="state"
         (onAddCard)="addCard($event)"
         [cards]="board.dataObjects">
     </gtm-column>
   </div>
-  <div class="add-column"
+  <div class="add-column" style="margin-top: 30px;"
        (click)="enableAddColumn()" >
   	<span [style.display]="addingColumn ? 'none' : ''" >Add a list...</span>
-   
     <input  
 	    [style.display]="addingColumn ? '' : 'none' "
 	    (blur)="addColumnOnBlur()"

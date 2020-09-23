@@ -8,6 +8,7 @@ import {DataObjectService} from '../data-object/data-object.service';
 import { Data } from '@angular/router';
 import {OrderBy} from '../pipes/orderby.pipe';
 import {Where} from '../pipes/where.pipe';
+import { faTimes } from '@fortawesome/free-solid-svg-icons';
 
 declare var jQuery: any;
 
@@ -108,10 +109,8 @@ export class StateComponent implements OnInit {
 
     console.log(event);
     let card = this.cards.filter(x => x.objectId === +event.cardId)[0];
-    console.log(card);
-    let oldStateId = card.index;
     card.index = newOrder;
-    card.index = event.columnId;
+    card.stateId = +event.columnId;
     this._dataObjectService.put(card).subscribe(res => {
       // this._ws.updateDataObject(this.column.boardId, card);
     });

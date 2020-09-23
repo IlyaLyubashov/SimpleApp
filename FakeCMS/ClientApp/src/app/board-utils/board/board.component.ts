@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, OnDestroy, AfterViewInit, ElementRef } from '@angular/core';
+import { Component, Input, OnInit, OnDestroy, AfterViewInit, ElementRef, ViewChild } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Board } from '../board/board';
 import { State } from '../state/state';
@@ -10,6 +10,7 @@ import { OrderBy } from '../pipes/orderby.pipe';
 import { Where } from '../pipes/where.pipe';
 import { Router, Params, ActivatedRoute, Data } from '@angular/router';
 import { ThrowStmt } from '@angular/compiler';
+import { YesNoModalComponent } from '../../shared/yes-no-modal/yes-no-modal.component';
 
 declare var jQuery: any;
 var curYPos = 0,
@@ -35,6 +36,11 @@ export class BoardComponent implements OnInit {
     private _columnService: StateService,
     private _router: Router,
     private _route: ActivatedRoute) {
+  }
+
+  @ViewChild('consoleModal', { static: true }) public consoleModal: YesNoModalComponent;
+  console(data: any){
+    this.consoleModal.showAsync(data).then(r => console.log("Modal"), r => {});
   }
 
   ngOnInit() {
@@ -195,7 +201,8 @@ export class BoardComponent implements OnInit {
       newOrder = elAfter / 2;
     }
 
-    let column = this.board.states.filter(x => x.id === event.columnId)[0];
+    let column = this.board.states.find(x => x.id === +event.columnId);
+    console.log(column)
     column.index = newOrder;
     this._columnService.put(column).subscribe(res => {
       // this._ws.updateColumn(this.board._id, column);
@@ -224,7 +231,7 @@ export class BoardComponent implements OnInit {
       index: (this.board.states.length + 1) /** 1000*/,
       tableId: this.board.id
     };
-    this._boardService.addStateToTable(newColumn)
+    this._columnService.post(newColumn)
       .subscribe(column => {
         console.log("add new column");
         this.board.states.push(column);
@@ -262,6 +269,16 @@ export class BoardComponent implements OnInit {
 
   addDataObject(dataObj: DataObject) {
     this.board.dataObjects.push(dataObj);
+  }
+
+  deleteState(state: State){
+    console.log(state);
+    this._columnService.delete(state).subscribe(r => {
+      let idx = this.board.states.findIndex(s => s.id == state.id);
+      this.board.states.splice(idx, 1);
+      this.board.dataObjects.filter(o => o.stateId == state.id)
+        .forEach(o => o.stateId = null);
+    })
   }
 
   // foreceUpdateCards() {
